@@ -1,6 +1,8 @@
 if (!require("data.table")) install.packages("data.table")
 library("data.table")
-if (!require("readr")) install.packages("readr")
-library("readr")
-data.table::fread("UNRATE.csv")
-DF <- fread("UNRATE.csv", header="auto", data.table=FALSE)
+header <- read.table("unrate.csv", header = TRUE,
+                     sep=",", nrow = 1)
+DF <- fread("unrate.csv", skip=1, sep=",",
+            header=FALSE, data.table=FALSE)
+setnames(DF, colnames(header))
+rm(header)
